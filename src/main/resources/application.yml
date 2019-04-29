@@ -1,0 +1,40 @@
+server:
+  port: 8700
+
+spring:
+    datasource:
+        name: employment_master
+        url: jdbc:mysql://127.0.0.1:3306/employment?useUnicode=true&characterEncoding=utf-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        username: root
+        password:
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+
+#    jackson:
+#      date-format: yyyy-MM-dd HH:mm:ss
+#      time-zone: GMT+8
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+mybatis:
+  type-aliases-package: com.mysql.cj.jdbc.Driver
+  mapper-locations: classpath:xml/*.xml
+logging:
+  level:
+    com.manage.employ:
+      mapper: debug
+      path: E:/就业信息管理系统/logggggg

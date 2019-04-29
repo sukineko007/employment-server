@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manage.employ.mapper.RecruitMapper">
+  <resultMap id="BaseResultMap" type="com.manage.employ.beans.Recruit">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="enter_id" jdbcType="INTEGER" property="enterId" />
+    <result column="enter_name" jdbcType="VARCHAR" property="enterName" />
+    <result column="enter_info" jdbcType="VARCHAR" property="enterInfo" />
+    <result column="enter_major" jdbcType="VARCHAR" property="enterMajor" />
+    <result column="enter_address" jdbcType="VARCHAR" property="enterAddress" />
+    <result column="salary" jdbcType="DECIMAL" property="salary" />
+    <result column="hr_name" jdbcType="VARCHAR" property="hrName" />
+    <result column="hr_phone" jdbcType="VARCHAR" property="hrPhone" />
+    <result column="hr_mailbox" jdbcType="VARCHAR" property="hrMailbox" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, enter_id, enter_name, enter_info, enter_major, enter_address, salary, hr_name, 
+    hr_phone, hr_mailbox
+  </sql>
+  <select id="selectByExample" parameterType="com.manage.employ.beans.RecruitExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from recruit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from recruit
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from recruit
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.manage.employ.beans.RecruitExample">
+    delete from recruit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.manage.employ.beans.Recruit">
+    insert into recruit (id, enter_id, enter_name, 
+      enter_info, enter_major, enter_address, 
+      salary, hr_name, hr_phone, 
+      hr_mailbox)
+    values (#{id,jdbcType=INTEGER}, #{enterId,jdbcType=INTEGER}, #{enterName,jdbcType=VARCHAR}, 
+      #{enterInfo,jdbcType=VARCHAR}, #{enterMajor,jdbcType=VARCHAR}, #{enterAddress,jdbcType=VARCHAR}, 
+      #{salary,jdbcType=DECIMAL}, #{hrName,jdbcType=VARCHAR}, #{hrPhone,jdbcType=VARCHAR}, 
+      #{hrMailbox,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.manage.employ.beans.Recruit">
+    insert into recruit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="enterId != null">
+        enter_id,
+      </if>
+      <if test="enterName != null">
+        enter_name,
+      </if>
+      <if test="enterInfo != null">
+        enter_info,
+      </if>
+      <if test="enterMajor != null">
+        enter_major,
+      </if>
+      <if test="enterAddress != null">
+        enter_address,
+      </if>
+      <if test="salary != null">
+        salary,
+      </if>
+      <if test="hrName != null">
+        hr_name,
+      </if>
+      <if test="hrPhone != null">
+        hr_phone,
+      </if>
+      <if test="hrMailbox != null">
+        hr_mailbox,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="enterId != null">
+        #{enterId,jdbcType=INTEGER},
+      </if>
+      <if test="enterName != null">
+        #{enterName,jdbcType=VARCHAR},
+      </if>
+      <if test="enterInfo != null">
+        #{enterInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterMajor != null">
+        #{enterMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="enterAddress != null">
+        #{enterAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        #{salary,jdbcType=DECIMAL},
+      </if>
+      <if test="hrName != null">
+        #{hrName,jdbcType=VARCHAR},
+      </if>
+      <if test="hrPhone != null">
+        #{hrPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hrMailbox != null">
+        #{hrMailbox,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.manage.employ.beans.RecruitExample" resultType="java.lang.Integer">
+    select count(*) from recruit
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update recruit
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.enterId != null">
+        enter_id = #{record.enterId,jdbcType=INTEGER},
+      </if>
+      <if test="record.enterName != null">
+        enter_name = #{record.enterName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterInfo != null">
+        enter_info = #{record.enterInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterMajor != null">
+        enter_major = #{record.enterMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enterAddress != null">
+        enter_address = #{record.enterAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salary != null">
+        salary = #{record.salary,jdbcType=DECIMAL},
+      </if>
+      <if test="record.hrName != null">
+        hr_name = #{record.hrName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hrPhone != null">
+        hr_phone = #{record.hrPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hrMailbox != null">
+        hr_mailbox = #{record.hrMailbox,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update recruit
+    set id = #{record.id,jdbcType=INTEGER},
+      enter_id = #{record.enterId,jdbcType=INTEGER},
+      enter_name = #{record.enterName,jdbcType=VARCHAR},
+      enter_info = #{record.enterInfo,jdbcType=VARCHAR},
+      enter_major = #{record.enterMajor,jdbcType=VARCHAR},
+      enter_address = #{record.enterAddress,jdbcType=VARCHAR},
+      salary = #{record.salary,jdbcType=DECIMAL},
+      hr_name = #{record.hrName,jdbcType=VARCHAR},
+      hr_phone = #{record.hrPhone,jdbcType=VARCHAR},
+      hr_mailbox = #{record.hrMailbox,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.manage.employ.beans.Recruit">
+    update recruit
+    <set>
+      <if test="enterId != null">
+        enter_id = #{enterId,jdbcType=INTEGER},
+      </if>
+      <if test="enterName != null">
+        enter_name = #{enterName,jdbcType=VARCHAR},
+      </if>
+      <if test="enterInfo != null">
+        enter_info = #{enterInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="enterMajor != null">
+        enter_major = #{enterMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="enterAddress != null">
+        enter_address = #{enterAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        salary = #{salary,jdbcType=DECIMAL},
+      </if>
+      <if test="hrName != null">
+        hr_name = #{hrName,jdbcType=VARCHAR},
+      </if>
+      <if test="hrPhone != null">
+        hr_phone = #{hrPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hrMailbox != null">
+        hr_mailbox = #{hrMailbox,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.manage.employ.beans.Recruit">
+    update recruit
+    set enter_id = #{enterId,jdbcType=INTEGER},
+      enter_name = #{enterName,jdbcType=VARCHAR},
+      enter_info = #{enterInfo,jdbcType=VARCHAR},
+      enter_major = #{enterMajor,jdbcType=VARCHAR},
+      enter_address = #{enterAddress,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=DECIMAL},
+      hr_name = #{hrName,jdbcType=VARCHAR},
+      hr_phone = #{hrPhone,jdbcType=VARCHAR},
+      hr_mailbox = #{hrMailbox,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
